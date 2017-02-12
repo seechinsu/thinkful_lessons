@@ -25,13 +25,21 @@ df = pd.DataFrame(data_rows, columns=column_names)
 df['Alcohol'] = df['Alcohol'].astype(float)
 df['Tobacco'] = df['Tobacco'].astype(float)
 
+print 'Alcohol'
 print df['Alcohol'].mean()
 print df['Alcohol'].median()
 print stats.mode(df['Alcohol'])
-
+print max(df['Alcohol']) - min(df['Alcohol'])
+print df['Alcohol'].std()
+print df['Alcohol'].var()
+print '\n'
+print 'Tobacco'
 print df['Tobacco'].mean()
 print df['Tobacco'].median()
 print stats.mode(df['Tobacco'])
+print max(df['Tobacco']) - min(df['Tobacco'])
+print df['Tobacco'].std()
+print df['Tobacco'].var()
 
 #print column_names
 #print data_rows
