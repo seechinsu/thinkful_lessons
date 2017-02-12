@@ -27,20 +27,31 @@ weather = (('New York City',   2013,    'July',        'January',     62),
 
 con = lite.connect('getting_started.db')
 
-#first drop then create cities and weather tables
+
 with con:
     cur = con.cursor()
+
+    # drop cities and weather tables
     cur.execute("DROP TABLE IF EXISTS cities")
     cur.execute("DROP TABLE IF EXISTS weather")
+
+    # create cities and weather tables
     cur.execute("CREATE TABLE cities (name text, state text)")
     cur.execute("CREATE TABLE weather (city text, year integer, warm_month text, cold_month text, average_high integer)")
+
+    # populate tables with tuples
     cur.executemany("INSERT INTO cities VALUES(?,?)", cities)
     cur.executemany("INSERT INTO weather VALUES(?,?,?,?,?)", weather)
+
+    # join tables using city and select only relevant columns and rows
     cur.execute("select c.name, c.state, w.year, w.warm_month, w.cold_month, w.average_high from cities c join weather w on c.name = w.city where w.warm_month = 'July'")
 
+    # load joined table into dataframe
     rows = cur.fetchall()
     cols = [desc[0] for desc in cur.description]
     df = pd.DataFrame(rows, columns=cols)
+
+    # creates a list of the city and states then convert to a string
     julycities = []
     for index, row in df.iterrows():
         julycities.append(row['name'] + ", " + row['state'])
