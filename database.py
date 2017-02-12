@@ -1,8 +1,6 @@
 import sqlite3 as lite
 import pandas as pd
 
-weather = ()
-
 cities = (('New York City', 'NY'),
           ('Boston', 'MA'),
           ('Chicago', 'IL'),
