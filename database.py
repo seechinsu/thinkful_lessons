@@ -1,6 +1,8 @@
 import sqlite3 as lite
 import pandas as pd
 
+weather = ()
+
 cities = (('New York City', 'NY'),
           ('Boston', 'MA'),
           ('Chicago', 'IL'),
@@ -9,7 +11,9 @@ cities = (('New York City', 'NY'),
           ('Seattle', 'WA'),
           ('Portland', 'OR'),
           ('San Francisco', 'CA'),
-          ('Los Angeles', 'CA'))
+          ('Los Angeles', 'CA'),
+          ('Las Vegas', 'NV'),
+          ('Atlanta', 'GA'))
 
 weather = (('New York City',   2013,    'July',        'January',     62),
            ('Boston',          2013,    'July',        'January',     59),
@@ -19,7 +23,9 @@ weather = (('New York City',   2013,    'July',        'January',     62),
            ('Seattle',         2013,    'July',        'January',     61),
            ('Portland',        2013,    'July',        'December',    63),
            ('San Francisco',   2013,    'September',   'December',    64),
-           ('Los Angeles',     2013,    'September',   'December',    75))
+           ('Los Angeles',     2013,    'September',   'December',    75),
+           ('Las Vegas',       2013,    'July',        'December',    85),
+           ('Atlanta',         2013,    'July',        'January',     82))
 
 con = lite.connect('getting_started.db')
 
@@ -37,4 +43,11 @@ with con:
     rows = cur.fetchall()
     cols = [desc[0] for desc in cur.description]
     df = pd.DataFrame(rows, columns=cols)
-    print df['name']
+    julycities = []
+    for index, row in df.iterrows():
+        julycities.append(row['name'] + ", " + row['state'])
+    strjulycities = ', '.join(julycities)
+
+    print "The cities that are warmest in July are: " + strjulycities
+
+
