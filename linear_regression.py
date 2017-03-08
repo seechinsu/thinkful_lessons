@@ -40,3 +40,6 @@ print f.summary()
 
 plt.scatter(x1, y)
 plt.show()
+
+loansData.to_csv('loansData_clean.csv', header=True, index=False)
+
