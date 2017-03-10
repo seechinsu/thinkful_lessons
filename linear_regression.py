@@ -30,16 +30,18 @@ x1 = np.matrix(fico).transpose()
 x2 = np.matrix(loanamt).transpose()
 
 x = np.column_stack([x1, x2])
+print x
 X = sm.add_constant(x)
+print X
 model = sm.OLS(y, X)
 
 f = model.fit()
-print f.params
-print f.pvalues
-print f.summary()
+#print f.params
+#print f.pvalues
+#print f.summary()
 
 plt.scatter(x1, y)
 plt.show()
 
-loansData.to_csv('loansData_clean.csv', header=True, index=False)
+#loansData.to_csv('loansData_clean.csv', header=True, index=False)
 
